@@ -15,7 +15,7 @@
         h1 {
             color: #333;
         }
-        .dice {
+        .dice, .random-number {
             font-size: 50px;
             display: inline-block;
             width: 80px;
@@ -43,23 +43,25 @@
     </style>
 </head>
 <body>
-    <h1>Roll the Dice!</h1>
+    <h1>Roll the Dice and Generate Random Numbers!</h1>
     <label for="numDice">Number of Dice:</label>
     <input type="number" id="numDice" value="2" min="1">
     <br><br>
-    <button onclick="rollDice()">Roll</button>
+    <button onclick="rollDice()">Roll Dice</button>
+    <button onclick="generateRandomNumber()">Generate Random Number</button>
     <div id="diceContainer"></div>
     <div id="sumContainer"></div>
+    <div id="randomNumberContainer"></div>
 
     <script>
+        const diceEmojis = ['🎲', '⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+
         function rollDice() {
             const numDice = document.getElementById('numDice').value;
             const diceContainer = document.getElementById('diceContainer');
             const sumContainer = document.getElementById('sumContainer');
             diceContainer.innerHTML = ''; // Clear previous dice
             let sum = 0;
-
-            const diceEmojis = ['🎲', '⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
 
             for (let i = 0; i < numDice; i++) {
                 const diceValue = Math.floor(Math.random() * 6) + 1;
@@ -70,6 +72,12 @@
                 sum += diceValue;
             }
             sumContainer.innerHTML = `<h2>Total Sum: ${sum}</h2>`;
+        }
+
+        function generateRandomNumber() {
+            const randomNumber = Math.floor(Math.random() * 100) + 1;
+            const randomNumberContainer = document.getElementById('randomNumberContainer');
+            randomNumberContainer.innerHTML = `<div class="random-number">${randomNumber}</div>`;
         }
     </script>
 </body>
