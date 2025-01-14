@@ -59,11 +59,13 @@
             diceContainer.innerHTML = ''; // Clear previous dice
             let sum = 0;
 
+            const diceEmojis = ['🎲', '⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+
             for (let i = 0; i < numDice; i++) {
                 const diceValue = Math.floor(Math.random() * 6) + 1;
                 const diceDiv = document.createElement('div');
                 diceDiv.className = 'dice';
-                diceDiv.textContent = diceValue;
+                diceDiv.textContent = diceEmojis[diceValue];
                 diceContainer.appendChild(diceDiv);
                 sum += diceValue;
             }
