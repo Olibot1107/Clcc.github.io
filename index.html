@@ -49,7 +49,6 @@
     <br><br>
     <button onclick="rollDice()">Roll Dice</button>
     <button onclick="generateRandomNumber()">Generate Random Number</button>
-    <button onclick="clearResults()">Clear</button>
     <div id="diceContainer"></div>
     <div id="sumContainer"></div>
     <div id="randomNumberContainer"></div>
@@ -86,12 +85,6 @@
             const randomNumberContainer = document.getElementById('randomNumberContainer');
             randomNumberContainer.innerHTML = `<div class="random-number">${randomNumber}</div>`;
             
-        }
-
-        function clearResults() {
-            document.getElementById('diceContainer').innerHTML = '';
-            document.getElementById('sumContainer').innerHTML = '';
-            document.getElementById('randomNumberContainer').innerHTML = '';
         }
     </script>
 </body>
