@@ -58,6 +58,9 @@
         const diceEmojis = ['🎲', '⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
 
         function rollDice() {
+            document.getElementById('diceContainer').innerHTML = '';
+            document.getElementById('sumContainer').innerHTML = '';
+            document.getElementById('randomNumberContainer').innerHTML = '';
             const numDice = document.getElementById('numDice').value;
             const diceContainer = document.getElementById('diceContainer');
             const sumContainer = document.getElementById('sumContainer');
@@ -76,9 +79,13 @@
         }
 
         function generateRandomNumber() {
+            document.getElementById('diceContainer').innerHTML = '';
+            document.getElementById('sumContainer').innerHTML = '';
+            document.getElementById('randomNumberContainer').innerHTML = '';
             const randomNumber = Math.floor(Math.random() * 100) + 1;
             const randomNumberContainer = document.getElementById('randomNumberContainer');
             randomNumberContainer.innerHTML = `<div class="random-number">${randomNumber}</div>`;
+            
         }
 
         function clearResults() {
