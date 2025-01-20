@@ -1,5 +1,138 @@
-<a href="https://olibot1107.github.io/CHESS.github.io/">Chess</a>
-<a href="https://olibot1107.github.io/CHESS.github.io/">Chess</a>
-<a href="https://olibot1107.github.io/CHESS.github.io/">Chess</a>
-<a href="https://olibot1107.github.io/CHESS.github.io/">Chess</a>
-<a href="https://olibot1107.github.io/CHESS.github.io/">Chess</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: #333;
+        }
+
+        .quiz-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 2px solid #fff;
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        input, select {
+            width: 90%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #feedback {
+            margin-top: 20px;
+            font-size: 1.2em;
+            animation: fade-in 0.5s;
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Math Quiz</h1>
+        <label for="operation">Choose Operation:</label>
+        <select id="operation">
+            <option value="+">Addition (+)</option>
+            <option value="-">Subtraction (-)</option>
+            <option value="*">Multiplication (x)</option>
+            <option value="/">Division (/)</option>
+        </select>
+        <label for="range">Select Number Range:</label>
+        <select id="range">
+            <option value="10">1-10</option>
+            <option value="12">1-12</option>
+            <option value="20">1-20</option>
+        </select>
+        <p id="question"></p>
+        <input type="number" id="answer" placeholder="Your answer">
+        <button onclick="checkAnswer()">Submit</button>
+        <p id="feedback"></p>
+    </div>
+
+    <script>
+        let num1, num2, correctAnswer, operation;
+        
+        function generateQuestion() {
+            const range = parseInt(document.getElementById('range').value);
+            num1 = Math.floor(Math.random() * range) + 1;
+            num2 = Math.floor(Math.random() * range) + 1;
+            operation = document.getElementById('operation').value;
+
+            switch (operation) {
+                case '+':
+                    correctAnswer = num1 + num2;
+                    break;
+                case '-':
+                    correctAnswer = num1 - num2;
+                    break;
+                case '*':
+                    correctAnswer = num1 * num2;
+                    break;
+                case '/':
+                    correctAnswer = (num1 / num2).toFixed(2); // Show up to 2 decimal places
+                    break;
+            }
+            document.getElementById('question').textContent = `What is ${num1} ${operation} ${num2}?`;
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById('answer').value;
+            const feedback = document.getElementById('feedback');
+
+            if (parseFloat(userAnswer) === parseFloat(correctAnswer)) {
+                feedback.textContent = 'Correct! Well done!';
+                feedback.style.color = 'green';
+            } else {
+                feedback.textContent = `Incorrect. The correct answer is ${correctAnswer}.`;
+                feedback.style.color = 'red';
+            }
+
+            // Clear the answer and generate a new question
+            document.getElementById('answer').value = '';
+            generateQuestion();
+        }
+
+        // Initial question
+        generateQuestion();
+
+        // Update the question when the operation or range changes
+        document.getElementById('operation').addEventListener('change', generateQuestion);
+        document.getElementById('range').addEventListener('change', generateQuestion);
+    </script>
+</body>
+</html>
