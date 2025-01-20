@@ -52,6 +52,11 @@
             animation: fade-in 0.5s;
         }
 
+        #score, #timer {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
         @keyframes fade-in {
             from {
                 opacity: 0;
@@ -82,12 +87,20 @@
         <input type="number" id="answer" placeholder="Your answer">
         <button onclick="checkAnswer()">Submit</button>
         <p id="feedback"></p>
+        <p id="score">Score: 0</p>
+        <p id="timer">Time Left: 10s</p>
     </div>
 
     <script>
-        let num1, num2, correctAnswer, operation;
-        
+        let num1, num2, correctAnswer, operation, timer;
+        let score = 0;
+        let timeLeft = 10; // 10 seconds for each question
+
         function generateQuestion() {
+            clearTimeout(timer);
+            timeLeft = 10;
+            updateTimer();
+
             const range = parseInt(document.getElementById('range').value);
             num1 = Math.floor(Math.random() * range) + 1;
             num2 = Math.floor(Math.random() * range) + 1;
@@ -108,6 +121,8 @@
                     break;
             }
             document.getElementById('question').textContent = `What is ${num1} ${operation} ${num2}?`;
+
+            startTimer();
         }
 
         function checkAnswer() {
@@ -117,20 +132,34 @@
             if (parseFloat(userAnswer) === parseFloat(correctAnswer)) {
                 feedback.textContent = 'Correct! Well done!';
                 feedback.style.color = 'green';
+                score++;
             } else {
                 feedback.textContent = `Incorrect. The correct answer is ${correctAnswer}.`;
                 feedback.style.color = 'red';
             }
 
-            // Clear the answer and generate a new question
+            document.getElementById('score').textContent = `Score: ${score}`;
             document.getElementById('answer').value = '';
             generateQuestion();
         }
 
-        // Initial question
+        function updateTimer() {
+            document.getElementById('timer').textContent = `Time Left: ${timeLeft}s`;
+            if (timeLeft <= 0) {
+                alert('Time is up! Moving to the next question.');
+                generateQuestion();
+            } else {
+                timeLeft--;
+                timer = setTimeout(updateTimer, 1000);
+            }
+        }
+
+        function startTimer() {
+            timer = setTimeout(updateTimer, 1000);
+        }
+
         generateQuestion();
 
-        // Update the question when the operation or range changes
         document.getElementById('operation').addEventListener('change', generateQuestion);
         document.getElementById('range').addEventListener('change', generateQuestion);
     </script>
